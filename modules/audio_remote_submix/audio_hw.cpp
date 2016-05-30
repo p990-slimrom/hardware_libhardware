@@ -895,6 +895,7 @@ static int out_get_next_write_timestamp(const struct audio_stream_out *stream,
 }
 #endif
 
+
 /** audio_stream_in implementation **/
 static uint32_t in_get_sample_rate(const struct audio_stream *stream)
 {

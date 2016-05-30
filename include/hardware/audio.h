@@ -60,9 +60,14 @@ __BEGIN_DECLS
 #define AUDIO_DEVICE_API_VERSION_1_0 HARDWARE_DEVICE_API_VERSION(1, 0)
 #define AUDIO_DEVICE_API_VERSION_2_0 HARDWARE_DEVICE_API_VERSION(2, 0)
 #define AUDIO_DEVICE_API_VERSION_3_0 HARDWARE_DEVICE_API_VERSION(3, 0)
+#ifndef ICS_AUDIO_BLOB
 #define AUDIO_DEVICE_API_VERSION_CURRENT AUDIO_DEVICE_API_VERSION_3_0
+#else
+#define AUDIO_DEVICE_API_VERSION_CURRENT AUDIO_DEVICE_API_VERSION_1_0
+#endif
 /* Minimal audio HAL version supported by the audio framework */
-#define AUDIO_DEVICE_API_VERSION_MIN AUDIO_DEVICE_API_VERSION_2_0
+#define AUDIO_DEVICE_API_VERSION_MIN AUDIO_DEVICE_API_VERSION_1_0
+
 
 /**
  * List of known audio HAL modules. This is the base name of the audio HAL
@@ -632,6 +637,8 @@ struct audio_hw_device {
      * playing, and AUDIO_MODE_IN_CALL when a call is in progress.
      */
     int (*set_mode)(struct audio_hw_device *dev, audio_mode_t mode);
+int (*dummy1)();
+int (*dummy2)();
 
     /* mic mute */
     int (*set_mic_mute)(struct audio_hw_device *dev, bool state);
@@ -666,6 +673,7 @@ struct audio_hw_device {
      * - USB devices use the ALSA card and device numbers in the form  "card=X;device=Y"
      * - Other devices may use a number or any other string.
      */
+
 #ifndef ICS_AUDIO_BLOB
     int (*open_output_stream)(struct audio_hw_device *dev,
                               audio_io_handle_t handle,
@@ -708,6 +716,7 @@ struct audio_hw_device {
     /** This method dumps the state of the audio hardware */
     int (*dump)(const struct audio_hw_device *dev, int fd);
 
+#ifndef ICS_AUDIO_BLOB
     /**
      * set the audio mute status for all audio activities.  If any value other
      * than 0 is returned, the software mixer will emulate this capability.
@@ -727,6 +736,7 @@ struct audio_hw_device {
      * Routing control
      */
 
+#endif
     /* Creates an audio patch between several source and sink ports.
      * The handle is allocated by the HAL and should be unique for this
      * audio HAL module. */
