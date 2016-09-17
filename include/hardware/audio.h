@@ -376,7 +376,6 @@ struct audio_stream_out {
     int (*stop)(struct audio_stream_out *stream);
 #endif
 
-#ifndef ICS_AUDIO_BLOB
     /**
      * get the local time at which the next write to the audio driver will be presented.
      * The units are microseconds, where the epoch is decided by the local audio HAL.
@@ -457,7 +456,6 @@ struct audio_stream_out {
      */
     int (*get_presentation_position)(const struct audio_stream_out *stream,
                                uint64_t *frames, struct timespec *timestamp);
-#endif
 
 #ifdef QCOM_DIRECTTRACK
     /**
